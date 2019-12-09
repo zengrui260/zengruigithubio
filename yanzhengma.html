@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .codeinput{
+            outline: none;
+            border: 1px solid #333333;
+            border-radius: 5px;
+            padding: 6px;
+        }
+        .codeBtn{
+            outline: none;
+            border: 1px solid #333333;
+            height: 35px;
+            width: 85px;
+            background: #a4a8ae;
+            cursor: pointer;
+            color: burlywood;
+            font-size: 20px;
+            font-weight: bold;
+            font-style: oblique;
+            letter-spacing: 5px;
+        }
+        .alert{
+            color: #ff5a4d;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <input type="text" class="codeinput" id="codeinput">
+    <button class="codeBtn" id="codeBtn" onclick="createCode()">验证码<tton>
+        <button class="submitBtn" onclick="submitCode()">确定<tton>
+            <p class="alert" id="alertMsg"></p>
+</div>
+<script>
+    //生成随机验证码
+    function createCode()
+    {
+        var str="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        var arr=str.split("");
+        var length=4;
+        var code=("");
+        for (var i=0;i<length;i++)
+        {
+            var index=Math.floor((Math.random()*arr.length));
+            code +=arr[index];
+        }
+        var btn=document.getElementById("codeBtn");
+        btn.innerHTML=code;
+    }
+    //验证输入的验证码
+    function submitCode() {
+        //获取用户输入
+        var codeinput = document.getElementById("codeinput");
+        var inputCode = codeinput.value;
+        //获取页面当前验证码
+        var codeBtn = document.getElementById("codeBtn");
+        var refreshCode = codeBtn.innerHTML;
+        var alertMsg = document.getElementById("alertMsg");
+        if (inputCode.toLowerCase() == refreshCode.toLowerCase())
+        {
+            alertMsg.innerHTML = "验证成功！";
+        } else {
+            alertMsg.innerHTML = "验证码输入错误，请重新输入！";
+            createCode();
+        }
+    }
+    window.onload=function(){
+        createCode();
+        // console.log("right code:"+refreshCode);
+    }
+    createCode();
+</script>
+</body>
+<html>
